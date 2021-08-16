@@ -1,0 +1,71 @@
+env:
+  TERM: xterm-256color
+window:
+  dimensions:
+    columns: 0
+    lines: 0
+  padding:
+    x: 0
+    y: 0
+  dynamic_padding: false
+  startup_mode: SimpleFullscreen
+font:
+  normal:
+    family: RobotoMono Nerd Font
+    style: Regular
+  bold:
+    family: RobotoMono Nerd Font
+    style: Bold
+  italic:
+    family: RobotoMono Nerd Font
+    style: Italic
+  size: 12.0
+
+colors:
+  # Default colors
+  primary:
+    background: '#282c34'
+    foreground: '#abb2bf'
+
+  # Normal colors
+  normal:
+    # NOTE: Use '#131613' for the `black` color if you'd like to see
+    # black text on the background.
+    black: '#282c34'
+    red: '#e06c75'
+    green: '#98c379'
+    yellow: '#d19a66'
+    blue: '#61afef'
+    magenta: '#c678dd'
+    cyan: '#56b6c2'
+    white: '#abb2bf'
+
+  # Bright colors
+  bright:
+    black: '#5c6370'
+    red: '#e06c75'
+    green: '#98c379'
+    yellow: '#d19a66'
+    blue: '#61afef'
+    magenta: '#c678dd'
+    cyan: '#56b6c2'
+    white: '#ffffff'
+
+shell:
+  program: /bin/zsh
+  args:
+    - -l
+    - -c
+    - "tmux ls && read tmux_session && tmux attach -t ${tmux_session:-default}
+      || tmux new -s ${tmux_session:-default}"
+
+key_bindings:
+  - { key: K, mods: Command, action: ClearHistory }
+  - { key: V, mods: Command, action: Paste }
+  - { key: C, mods: Command, action: Copy }
+  - {
+      key: C,
+      mods: Command,
+      mode: Vi,
+      action: ClearSelection
+    }
