@@ -90,7 +90,30 @@ call plug#end()
 "--------------------------
 "      PLUGIN CONFIG    
 "--------------------------
-" Theme And Colors Config
+" " Floatterm
+let g:floaterm_keymap_new    = '<F7>'
+let g:floaterm_keymap_prev   = '<F8>'
+let g:floaterm_keymap_next   = '<F9>'
+let g:floaterm_keymap_toggle = '<F12>'
+let g:floaterm_autoclose = 1
+let g:floaterm_width = 0.8
+let g:floaterm_height = 0.8
+let g:floaterm_opener = 'tabe'
+let g:matchup_text_obj_linewise_operators = [ 'y' ]
+" let g:fzf_preview_window = ['right:50%', 'ctrl-/']
+let g:lf_open_new_tab = 1
+let g:lf_map_keys =0
+let g:toggleterm_terminal_mapping = '<C-t>'
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
+nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
+
 
 " Syntax
 lua <<EOF
@@ -131,11 +154,13 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
   severity_sort = true,
 })
 
-local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
+
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
-    local hl = "LspDiagnosticsSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
+
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
@@ -254,22 +279,6 @@ end
 
 
 EOF
-
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
-" Avoid showing message extra message when using completion
-set shortmess+=c
-
-" let g:nvim_tree_width = 40 "30 by default
-" let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
-" let g:nvim_tree_gitignore = 1 "0 by default
-" let g:nvim_tree_auto_close = 1 "0 by default, closes the tree when it's the last window
-
-
-nnoremap <C-n> :NvimTreeToggle<CR>
-nnoremap <leader>r :NvimTreeRefresh<CR>
-nnoremap <leader>n :NvimTreeFindFile<CR>
-
 
 if (exists("g:loaded_tabline_vim") && g:loaded_tabline_vim) || &cp
   finish
